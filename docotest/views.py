@@ -23,7 +23,6 @@ class ResolutionList(generics.ListCreateAPIView):
 
     serializer_class = ResolutionSerializer
     permission_classes = (IsAuthenticated,)
-    #queryset = Resolution.objects.all()
 
     def get_queryset(self):
         """
@@ -32,4 +31,3 @@ class ResolutionList(generics.ListCreateAPIView):
         """
         user = self.request.user
         return Resolution.objects.all().filter(author=user)
-        #return Resolution.objects.all()
