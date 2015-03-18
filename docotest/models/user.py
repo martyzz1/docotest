@@ -8,7 +8,9 @@ import hashlib
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
-    about_me = models.TextField(null=True, blank=True)
+    first_name = models.CharField(max_length=70, blank=False)
+    last_name = models.CharField(max_length=70, blank=False)
+    dob = models.DateField(blank=False)
 
     def __unicode__(self):
         return "{}'s profile".format(self.user.username)
@@ -31,7 +33,7 @@ class UserProfile(models.Model):
 
     def account_verified(self):
         """
-        If the user is logged in and has verified hisser email address, return True,
+        If the user is logged in and has verified their email address, return True,
         otherwise return False
         """
         result = EmailAddress.objects.filter(email=self.user.email)
