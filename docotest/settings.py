@@ -72,6 +72,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -149,3 +150,61 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+
+
+#rest_framework Setup
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'PAGE_SIZE' : 25
+}
+
+def skip_unreadable_post(record):
+    if record.exc_info:
+        exc_type, exc_value = record.exc_info[:2]
+        if isinstance(exc_value, UnreadablePostError):
+            return False
+    return True
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'skip_unreadable_posts': {
+            '()': 'django.utils.log.CallbackFilter',
+            'callback': skip_unreadable_post,
+        },
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'WARNING',
+            'filters': ['require_debug_false', 'skip_unreadable_posts'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'default': {
+            'level': 'WARNING',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+        '': {
+            'handlers': ['default'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    }
+}

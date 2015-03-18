@@ -35,6 +35,7 @@ class UserProfile(models.Model):
 
     class Meta:
         db_table = 'user_profile'
+        app_label = 'docotest'
         managed = True
 
     def profile_image_url(self):
