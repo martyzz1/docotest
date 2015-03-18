@@ -5,18 +5,36 @@ from allauth.socialaccount.models import SocialAccount
 
 import hashlib
 
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+
+
+@receiver(pre_save, sender=User)
+def update_username_from_email(sender, instance, **kwargs):
+    """
+    It would be overkill to use and Abstract Base User Auth model, but there is
+    a particularly annoying issue with allauth not generating a unique enough username under the hood
+    So We add our own
+    """
+    user_email = instance.email
+    username = user_email[:30]
+    n = 1
+    while User.objects.exclude(pk=instance.pk).filter(username=username).exists():
+        n += 1
+        username = user_email[:(29 - len(str(n)))] + '-' + str(n)
+    instance.username = username
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
-    first_name = models.CharField(max_length=70, blank=False)
-    last_name = models.CharField(max_length=70, blank=False)
-    dob = models.DateField(blank=False)
+    dob = models.DateField()
 
     def __unicode__(self):
         return "{}'s profile".format(self.user.username)
 
     class Meta:
         db_table = 'user_profile'
+        managed = True
 
     def profile_image_url(self):
         """
@@ -42,4 +60,4 @@ class UserProfile(models.Model):
         return False
 
 
-User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
+#User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
