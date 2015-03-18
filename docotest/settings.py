@@ -66,6 +66,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'django_nose',
     'docotest',
     'allauth',
     'allauth.account',
@@ -87,6 +88,7 @@ ROOT_URLCONF = 'docotest.urls'
 
 WSGI_APPLICATION = 'docotest.wsgi.application'
 
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
