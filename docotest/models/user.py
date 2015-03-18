@@ -60,6 +60,3 @@ class UserProfile(models.Model):
         if len(result):
             return result[0].verified
         return False
-
-
-#User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])

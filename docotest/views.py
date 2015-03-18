@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.contrib.auth.models import User
-from rest_framework import viewsets, generics
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 from serializers import ResolutionSerializer
-from permissions import OwnerPermission
+from models.resolution import Resolution
 
 
 def index(request):
@@ -16,7 +16,6 @@ def index(request):
                               RequestContext(request))
 
 
-
 class ResolutionList(generics.ListCreateAPIView):
     """
     API endpoint that allows ithe authenticated user's resolutions to be viewed or edited.
@@ -24,11 +23,13 @@ class ResolutionList(generics.ListCreateAPIView):
 
     serializer_class = ResolutionSerializer
     permission_classes = (IsAuthenticated,)
-    
+    #queryset = Resolution.objects.all()
+
     def get_queryset(self):
         """
         This view should return a list of all the resolutions
         for the currently authenticated user.
         """
         user = self.request.user
-        return User.resolutions.all()
+        return Resolution.objects.all().filter(author=user)
+        #return Resolution.objects.all()
