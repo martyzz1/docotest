@@ -39,14 +39,19 @@ define(['knockout', 'jquery', 'jquery.cookie'], function(ko) {
 
             $.post("/api/resolution/", resolution, function(returnedData) {
                 // This callback is executed if the post was successful     
-                self.resolutions.push(resolution);
+                //self.resolutions.push(resolution);
+                self.resolutions.push(returnedData);
             });
             self.newResolutionText("");
         };
         self.removeResolution = function(resolution){
-            $.delete("/api/resolution/", resolution, function(returnedData) {
-                // This callback is executed if the post was successful     
-                self.resolutions.remove(resolution)
+            $.ajax({url: "/api/resolution/" + resolution.id, 
+                    type: 'DELETE',
+                    data: resolution,
+                    success: function(returnedData) {
+                        // This callback is executed if the post was successful     
+                        self.resolutions.remove(resolution)
+                    }
             });
         };
         self.loadResolutions();
