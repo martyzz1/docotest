@@ -1,25 +1,29 @@
 {% load static from staticfiles %}
+{% load knockout %}
 <!DOCTYPE html>
 <html>
     <head>
         <title>DoCo New Years Resolution Test</title>
         <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}" />
+        <script type="text/javascript" data-main="{% static "js/main.js" %}" src="{% static "js/require.js" %}"></script>
     </head>
-    <body class="{% if request.user.is_authenticated %}logged-in{% else %}logged-out{% endif %}">
+    <body class="logged-in">
     <div class="pull-left">
     <img src="{{ request.user.profile.profile_image_url }}"/>
     <a href="/accounts/logout/" >Logout</a>
     </div>
-<div class="inset">
+<div class="biginset">
 <div class="header">My New Years Resolutions</div>
-    <ul>
-{% for resolution in resolutions %}
-        <li>{{ resolution }}</li>
-{% endfor %}
-    </ul>
-
-<button class="btn" type="new">New</button>
+<form data-bind="submit: addResolution">
+    <textarea class="bigtextarea"name="description" data-bind="value: newResolutionText"></textarea>
+    <button class="btn" type="submit">Create</button>
+</form>
+<ul data-bind="foreach: resolutions, visible: resolutions().length > 0">
+    <li>
+        <span class="pull-left" data-bind="text: description" /></span>
+        <a class="btn pull-right"href="#" data-bind="click: $parent.removeResolution">Delete</a>
+    </li> 
+</ul>
 </div>
-
     </body>
 </html>

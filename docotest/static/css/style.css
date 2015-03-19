@@ -48,8 +48,23 @@ input[type='email'] {
     margin-top: 40px;
     text-align: center;
 }
+.biginset {
+    width: 600px;
+    padding: 30px;
+    background: rgba(255,255,255,.65);
+    box-shadow: 2px 2px 8px rgba(0,0,0,.7);
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    text-align: center;
+}
 .inset .header {
     margin-bottom: 10px;
+}
+.bigtextarea{
+    width: 500px;
+    height: 100px;
 }
 .remember-forgot-section {
     width: 94%;

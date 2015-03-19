@@ -74,6 +74,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'rest_framework',
+    'knockout_modeler',
 )
 
 MIDDLEWARE_CLASSES = (

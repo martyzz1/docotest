@@ -17,3 +17,6 @@ class Resolution(models.Model):
 
     def __unicode__(self):
         return '{0}'.format(self.description)
+
+    def knockout_fields(self):
+        return['description']
