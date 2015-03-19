@@ -21,6 +21,7 @@
 <ul data-bind="foreach: resolutions, visible: resolutions().length > 0">
     <li>
         <span class="pull-left" data-bind="text: description" /></span>
+        <input type="hidden" data-bind="text: id" />
         <a class="btn pull-right"href="#" data-bind="click: $parent.removeResolution">Delete</a>
     </li> 
 </ul>
