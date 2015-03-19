@@ -30,7 +30,7 @@ define(['knockout'], function(ko) {
             self.newResolutionText("");
         };
         self.removeResolution = function(resolution){
-            $.post("/api/resolution/", resolution, function(returnedData) {
+            $.delete("/api/resolution/", resolution, function(returnedData) {
                 // This callback is executed if the post was successful     
                 self.resolutions.remove(resolution)
             });
