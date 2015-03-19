@@ -47,7 +47,6 @@ class ResolutionTests(APITestCase):
         url = reverse('resolution-list')
         data = {
                     'description': 'This is a test',
-                    'author': self.user.id,
                 }
 
         login = self.client.login(username=self.username, password=self.password)
@@ -70,7 +69,6 @@ class ResolutionTests(APITestCase):
 
         data = {
                     'description': self.retr_description,
-                    'author': self.user.id,
                     'id': self.retr_pk,
                 }
         check = 0
@@ -95,7 +93,6 @@ class ResolutionTests(APITestCase):
 
         data = {
                     'description': self.retr_description,
-                    'author': self.user.id,
                     'id': self.retr_pk,
                 }
         self.assertDictContainsSubset(data, response.data, "Retreived row doesn't match setup data")
@@ -125,10 +122,8 @@ class ResolutionTests(APITestCase):
         self.assertEqual(login, True)
         url = reverse('resolution-detail', args=[str(self.upd_pk)])
 
-        # TODO author should be retreived from the request. Not sure why it isn't
         data = {
                     'description': 'Updated description',
-                    'author': self.user.id,  # see above TODO
             }
         response = self.client.put(url, data=data, format='json')
 
