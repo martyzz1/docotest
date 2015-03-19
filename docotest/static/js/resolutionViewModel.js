@@ -15,12 +15,17 @@ define(['knockout'], function(ko) {
         self.loadResolutions = function () {
             $.getJSON('/api/resolution/', function (data) {
                 self.resolutions(data.results)
-            }
-            );
+            });
         }
 
         self.addResolution = function(resolution) {
-            self.resolutions.push(new Resolution({ description: this.newResolutionText() }));
+            resolution = new Resolution({ description: this.newResolutionText() });
+            var jsonData = ko.toJSON(resolution);
+
+            $.post("/api/resolution/", resolution, function(returnedData) {
+                // This callback is executed if the post was successful     
+                self.resolutions.push(resolution);
+            });
             self.newResolutionText("");
         };
         self.removeResolution = function(resolution){
