@@ -2,13 +2,13 @@
 
 {% load i18n %}
 {% load account %}
+{% load socialaccount %}
 {% load url from future %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-    <a href="/accounts/facebook/login/"><div class="fb"></div></a>
-    {% include "socialaccount/snippets/login_extra.html" %}
+    <a href="{% provider_login_url "facebook" method="js_sdk" %}"><div class="fb"></div><</a>
     <div class="inset">
         <div class="header">Or sign in directly</div>
         <form class="login" method="POST" action="{% url 'account_login' %}">
