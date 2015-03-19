@@ -3,10 +3,11 @@ from django.contrib.auth.models import User
 from django.db import models
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.models import SocialAccount
+from rest_framework.authtoken.models import Token
 
 import hashlib
 
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 from django.dispatch import receiver
 
 
@@ -24,6 +25,12 @@ def update_username_from_email(sender, instance, **kwargs):
         n += 1
         username = user_email[:(29 - len(str(n)))] + '-' + str(n)
     instance.username = username
+
+
+@receiver(post_save, sender=User)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
 
 
 class UserProfile(models.Model):
