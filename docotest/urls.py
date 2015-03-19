@@ -2,7 +2,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 #from rest_framework import routers
-from views import ResolutionList, ResolutionDetail
+from views import IndexView, ResolutionList, ResolutionDetail
 
 #router = routers.DefaultRouter()
 #router.register(r'resolution', ResolutionList.as_view(), 'resolution')
@@ -11,7 +11,7 @@ from views import ResolutionList, ResolutionDetail
 urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'docotest.views.index', name='index'),
+    url(r'^$', IndexView.as_view(), name='index'),
     (r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'^accounts/', include('allauth.urls')),
     #url(r'^api/', include(router.urls, namespace='api')),

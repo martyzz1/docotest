@@ -5,15 +5,24 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from serializers import ResolutionSerializer
 from models.resolution import Resolution
+from django.views.generic import View
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 
-def index(request):
-    """
-    homepage
-    """
+class IndexView(View):
 
-    return render_to_response("index.html",
+    def get(self, request):
+        """
+        homepage
+        """
+
+        return render_to_response("index.html",
                               RequestContext(request))
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(IndexView, self).dispatch(*args, **kwargs)
 
 
 class ResolutionMixin(object):
