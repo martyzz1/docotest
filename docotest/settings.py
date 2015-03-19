@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = os.environ.get("SECRET_KEY", get_random_string(50, "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG',False)
+DEBUG = os.environ.get('DEBUG', False)
 
 TEMPLATE_DEBUG = True
 
@@ -58,7 +58,6 @@ EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.conso
 
 SENDGRID_USER = os.environ.get('SENDGRID_USERNAME', '')
 SENDGRID_PASSWORD = os.environ.get('SENDGRID_PASSWORD', '')
-
 
 
 # Application definition
