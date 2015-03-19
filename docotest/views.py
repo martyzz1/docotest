@@ -31,3 +31,6 @@ class ResolutionList(generics.ListCreateAPIView):
         """
         user = self.request.user
         return Resolution.objects.all().filter(author=user)
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)

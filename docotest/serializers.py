@@ -24,7 +24,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ResolutionSerializer(serializers.ModelSerializer):
-    author = UserSerializer(read_only=True)
 
     class Meta:
         model = Resolution

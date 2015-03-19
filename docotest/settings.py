@@ -211,3 +211,11 @@ LOGGING = {
         },
     }
 }
+
+NOSE_INCLUDE_EXE = 1
+
+
+NOSE_ARGS = [
+    # '--with-coverage',
+    # '--cover-package=sharehoods',
+]
