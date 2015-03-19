@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from serializers import ResolutionSerializer
@@ -17,8 +16,14 @@ class IndexView(View):
         homepage
         """
 
-        return render_to_response("index.html",
-                              RequestContext(request))
+        user = request.user
+        resolutions = user.resolutions.all()
+
+        context = {
+                    'resolutions': resolutions
+                }
+
+        return render(request, "index.html", context)
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
