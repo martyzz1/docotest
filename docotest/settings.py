@@ -64,6 +64,7 @@ SENDGRID_PASSWORD = os.environ.get('SENDGRID_PASSWORD', '')
 # Application definition
 
 INSTALLED_APPS = (
+    'sslify.middleware.SSLifyMiddleware',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
