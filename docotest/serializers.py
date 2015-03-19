@@ -28,4 +28,4 @@ class ResolutionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Resolution
         read_only_fields = ('created', 'last_modified',)
-        fields = ('author', 'description', 'created', 'last_modified')
+        fields = ('id', 'author', 'description', 'created', 'last_modified')
