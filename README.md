@@ -10,8 +10,8 @@ Primarily put together using
 
 Endpoints for resolution creation, Deletion, Updating and Listing available at
 
-    /resolution/
-    /resolution/1
+    https://docotest.herokuapp.com/api/resolution/
+    https://docotest.herokuapp.com/api/resolution/1
 
 ## Tests
 
