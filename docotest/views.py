@@ -7,6 +7,7 @@ from models.resolution import Resolution
 from django.views.generic import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from rest_framework.authtoken.models import Token
 
 
 class IndexView(View):
@@ -17,10 +18,14 @@ class IndexView(View):
         """
 
         user = request.user
+        #token, created = Token.objects.get_or_create(user=user)
+        token = Token.objects.get(user=user)
+
         resolutions = user.resolutions.all()
 
         context = {
-                    'resolutions': resolutions
+                    'resolutions': resolutions,
+                    'token': token
                 }
 
         return render(request, "index.html", context)

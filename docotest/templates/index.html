@@ -10,6 +10,7 @@
     <body class="logged-in">
     <div class="pull-left">
     <img src="{{ request.user.profile.profile_image_url }}"/>
+    <span>API Token : {{ token }}</span>
     <a href="/accounts/logout/" >Logout</a>
     </div>
 <div class="biginset">
