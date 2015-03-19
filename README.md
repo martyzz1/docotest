@@ -3,6 +3,8 @@ Primarily put together using
 - Django 1.7
 - Django Rest Framework
 - Django-allauth
+- RequireJS
+- Jquery
 - Knockoutjs
 - WhiteNoise
 - Cloudfront
