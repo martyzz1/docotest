@@ -1,4 +1,4 @@
-define(['knockout'], function(ko) {
+define(['knockout', 'jquery', 'jquery.cookie'], function(ko) {
     
     function Resolution(data) {
         this.description = ko.observable(data.description);
