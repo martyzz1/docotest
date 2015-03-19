@@ -2,6 +2,7 @@ define(['knockout'], function(ko) {
     
     function Resolution(data) {
         this.description = ko.observable(data.description);
+        this.id = ko.observable(data.id);
     }
 
     
@@ -29,7 +30,10 @@ define(['knockout'], function(ko) {
             self.newResolutionText("");
         };
         self.removeResolution = function(resolution){
-            self.resolutions.remove(resolution)
+            $.post("/api/resolution/", resolution, function(returnedData) {
+                // This callback is executed if the post was successful     
+                self.resolutions.remove(resolution)
+            });
         };
         self.loadResolutions();
     }
