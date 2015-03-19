@@ -54,7 +54,11 @@ SOCIALACCOUNT_PROVIDERS = {
         'METHOD': 'js_sdk'  # instead of 'oauth2'
     }
 }
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
+
+SENDGRID_USER = os.environ.get('SENDGRID_USERNAME', '')
+SENDGRID_PASSWORD = os.environ.get('SENDGRID_PASSWORD', '')
+
 
 
 # Application definition
